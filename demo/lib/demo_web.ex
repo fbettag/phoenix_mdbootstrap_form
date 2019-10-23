@@ -36,10 +36,12 @@ defmodule DemoWeb do
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+      alias PhoenixMDBootstrapForm, as: MDF
 
       import DemoWeb.Router.Helpers
       import DemoWeb.ErrorHelpers
       import DemoWeb.Gettext
+      alias DemoWeb.Router.Helpers, as: Routes
     end
   end
 

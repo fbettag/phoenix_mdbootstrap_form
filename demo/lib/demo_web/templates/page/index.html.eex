@@ -1,57 +1,53 @@
 <h4>Basic</h4>
 
 <%= form_for @changeset, "/", [multipart: true], fn f -> %>
+  <%= MDF.text_input f, :value, input: [placeholder: "Enter Value"] %>
+  <%= MDF.textarea f, :value_1, label: [text: "Textarea"], input: [help: "help text"] %>
+  <%= MDF.file_input f, :value_2, label: [text: "File"] %>
+  <%= MDF.email_input f, :value_3, label: [text: "Email"] %>
+  <%= MDF.password_input f, :value_4, label: [text: "Password"] %>
+  <%= MDF.telephone_input f, :value_5, label: [text: "Telephone"] %>
+  <%= MDF.select f, :value_6, ["a", "b", "c"], label: [text: "Select"] %>
 
-  <%= PhoenixBootstrapForm.text_input f, :value, input: [placeholder: "Enter Value"] %>
-  <%= PhoenixBootstrapForm.textarea f, :value_1, label: [text: "Textarea"], input: [help: "help text"] %>
-  <%= PhoenixBootstrapForm.file_input f, :value_2, label: [text: "File"] %>
-  <%= PhoenixBootstrapForm.email_input f, :value_3, label: [text: "Email"] %>
-  <%= PhoenixBootstrapForm.password_input f, :value_4, label: [text: "Password"] %>
-  <%= PhoenixBootstrapForm.telephone_input f, :value_5, label: [text: "Telephone"] %>
-  <%= PhoenixBootstrapForm.select f, :value_6, ["a", "b", "c"], label: [text: "Select"] %>
+  <%= MDF.multiple_select f, :array_value, ["red", "green"] %>
 
-  <%= PhoenixBootstrapForm.checkbox f, :value_7 %>
-  <%= PhoenixBootstrapForm.checkbox f, :value_8, label: [text: "Custom Label"], input: [help: "help text"] %>
+  <%= MDF.checkbox f, :value_7 %>
+  <%= MDF.checkbox f, :value_8, label: [text: "Custom Label"], input: [help: "help text"] %>
 
-  <%= PhoenixBootstrapForm.radio_buttons f, :value_9, ["red", "green"] %>
-  <%= PhoenixBootstrapForm.radio_buttons f, :value_10, [{"Reddish", "red"}, {"Greenish", "green"}], label: [text: "Custom"], input: [help: "help text"] %>
-  <%= PhoenixBootstrapForm.radio_buttons f, :value_11, ["left", "top", "right"], input: [inline: true], label: [text: "Inline"] %>
+  <%= MDF.radio_buttons f, :value_9, ["red", "green"] %>
+  <%= MDF.radio_buttons f, :value_10, [{"Reddish", "red"}, {"Greenish", "green"}], label: [text: "Custom"], input: [help: "help text"] %>
+  <%= MDF.radio_buttons f, :value_11, ["left", "top", "right"], input: [inline: true], label: [text: "Inline"] %>
 
-  <%= PhoenixBootstrapForm.radio_buttons f, :value_12, ["purple rain", "violet thing"], label: [text: ""] %>
+  <%= MDF.radio_buttons f, :value_12, ["purple rain", "violet thing"], label: [text: ""] %>
 
   <% opts = [label: [text: "Custom", class: "red"], input: [help: "help text", append: "$", prepend: "%", placeholder: "Placeholder Text", data: [foo: "bar"]]] %>
-  <%= PhoenixBootstrapForm.text_input f, :value_13, opts %>
+  <%= MDF.text_input f, :value_13, opts %>
 
-  <%= PhoenixBootstrapForm.static f, "Label", "Content" %>
+  <%= MDF.static f, "Label", "Content" %>
 
-  <%= PhoenixBootstrapForm.checkboxes f, :value_14, ["red", "green", "blue"], selected: ["green"] %>
+  <%= MDF.checkboxes f, :value_14, ["red", "green", "blue"], selected: ["green"] %>
 
-  <%= PhoenixBootstrapForm.submit f %>
+  <%= MDF.submit f %>
 
   <% cancel = link "Cancel", to: "", class: "btn btn-link" %>
-  <%= PhoenixBootstrapForm.submit f, "Smash", class: "btn-primary", alternative: cancel %>
-
+  <%= MDF.submit f, "Smash", class: "btn-primary", alternative: cancel %>
 <% end %>
 
 <h4>With Errors</h4>
 
 <%= form_for @changeset_with_error, "/", fn f -> %>
-
-  <%= PhoenixBootstrapForm.text_input f, :error_value, input: [help: "help text"] %>
-  <%= PhoenixBootstrapForm.select f, :error_value, ["a", "b", "c"] %>
-  <%= PhoenixBootstrapForm.textarea f, :error_value %>
-  <%= PhoenixBootstrapForm.radio_buttons f, :error_value, ["red", "green"] %>
-  <%= PhoenixBootstrapForm.radio_buttons f, :error_value, ["red", "green"] %>
-  <%= PhoenixBootstrapForm.checkbox f, :error_value %>
-  <%= PhoenixBootstrapForm.submit f %>
-
+  <%= MDF.text_input f, :error_value, input: [help: "help text"] %>
+  <%= MDF.select f, :error_value, ["a", "b", "c"] %>
+  <%= MDF.textarea f, :error_value %>
+  <%= MDF.radio_buttons f, :error_value, ["red", "green"] %>
+  <%= MDF.radio_buttons f, :error_value, ["red", "green"] %>
+  <%= MDF.checkbox f, :error_value %>
+  <%= MDF.submit f %>
 <% end %>
 
 <h4>Custom Grid</h4>
 
 <%= form_for @changeset, "/", [label_col: "col-sm-3", control_col: "col-sm-9"], fn f -> %>
-
-  <%= PhoenixBootstrapForm.text_input f, :value %>
-  <%= PhoenixBootstrapForm.submit f %>
-
+  <%= MDF.text_input f, :value %>
+  <%= MDF.submit f %>
 <% end %>

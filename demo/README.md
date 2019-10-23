@@ -1,6 +1,6 @@
 # Demo App
 
-This is a simple Phoenix app with phoenix_bootstrap_installed.
+This is a simple Phoenix app with phoenix_mdbootstrap_installed.
 
 Following files were edited:
 

@@ -1,4 +1,4 @@
-defmodule PhoenixBootstrapForm do
+defmodule PhoenixMDBootstrapForm do
   alias Phoenix.HTML
   alias Phoenix.HTML.{Tag, Form}
 
@@ -9,6 +9,11 @@ defmodule PhoenixBootstrapForm do
 
   def select(form = %Form{}, field, options, opts \\ []) do
     draw_generic_input(:select, form, field, options, opts)
+  end
+
+  def multiple_select(form = %Form{}, field, options, opts \\ []) do
+    multi_opts = Keyword.put_new(opts, :multiple, [multiple: true])
+    draw_generic_input(:select, form, field, options, multi_opts)
   end
 
   [:text_input, :file_input, :email_input, :password_input, :textarea, :telephone_input]
@@ -180,22 +185,22 @@ defmodule PhoenixBootstrapForm do
 
   # -- Private methods ---------------------------------------------------------
   defp label_col_class(form) do
-    default = Application.get_env(:phoenix_bootstrap_form, :label_col_class, @label_col_class)
+    default = Application.get_env(:phoenix_mdbootstrap_form, :label_col_class, @label_col_class)
     Keyword.get(form.options, :label_col, default)
   end
 
   defp control_col_class(form) do
-    default = Application.get_env(:phoenix_bootstrap_form, :control_col_class, @control_col_class)
+    default = Application.get_env(:phoenix_mdbootstrap_form, :control_col_class, @control_col_class)
     Keyword.get(form.options, :control_col, default)
   end
 
   defp label_align_class(form) do
-    default = Application.get_env(:phoenix_bootstrap_form, :label_align_class, @label_align_class)
+    default = Application.get_env(:phoenix_mdbootstrap_form, :label_align_class, @label_align_class)
     Keyword.get(form.options, :label_align, default)
   end
 
   defp form_group_class() do
-    Application.get_env(:phoenix_bootstrap_form, :form_group_class, @form_group_class)
+    Application.get_env(:phoenix_mdbootstrap_form, :form_group_class, @form_group_class)
   end
 
   defp merge_css_classes(opts) do
@@ -247,10 +252,35 @@ defmodule PhoenixBootstrapForm do
     )
   end
 
+  defp draw_control(:file_input = type, form, field, options, opts) do
+    Tag.content_tag :div, class: "custom-file #{control_col_class(form)}" do
+      is_valid_class = is_valid_class(form, field)
+      input_opts = [class: "custom-file-input #{is_valid_class}"] ++
+        Keyword.get(opts, :input, [])
+
+      {prepend, input_opts} = Keyword.pop(input_opts, :prepend)
+      {append, input_opts} = Keyword.pop(input_opts, :append)
+      {help, input_opts} = Keyword.pop(input_opts, :help)
+
+      input =
+        draw_input(type, form, field, options, input_opts)
+        |> draw_input_group(prepend, append)
+
+      help = draw_help(help)
+      error = draw_error_message(get_error(form, field))
+      label = Tag.content_tag(:label, "Browse", [class: "custom-file-label"])
+
+      [input, label, error, help]
+    end
+  end
+
   defp draw_control(type, form, field, options, opts) do
     Tag.content_tag :div, class: control_col_class(form) do
       is_valid_class = is_valid_class(form, field)
-      input_opts = [class: "form-control #{is_valid_class}"] ++ Keyword.get(opts, :input, [])
+      input_opts = [class: "form-control #{is_valid_class}"] ++
+        Keyword.get(opts, :input, []) ++
+        Keyword.get(opts, :multiple, [])
+
       {prepend, input_opts} = Keyword.pop(input_opts, :prepend)
       {append, input_opts} = Keyword.pop(input_opts, :append)
       {help, input_opts} = Keyword.pop(input_opts, :help)
@@ -365,7 +395,7 @@ defmodule PhoenixBootstrapForm do
     end
 
     translate_error_fn =
-      Application.get_env(:phoenix_bootstrap_form, :translate_error_function, default_fn)
+      Application.get_env(:phoenix_mdbootstrap_form, :translate_error_function, default_fn)
 
     translate_error_fn.({msg, opts})
   end

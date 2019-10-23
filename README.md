@@ -1,41 +1,42 @@
-# PhoenixBootstrapForm
+# Phoenix Material Design Bootstrap Forms
 
-Format your application forms with [Bootstrap 4](http://getbootstrap.com) markup.
+Format your application forms with [Material Design Bootstrap 4](https://mdbootstrap.com) markup.
 
-[![Hex.pm](https://img.shields.io/hexpm/v/phoenix_bootstrap_form.svg?style=flat)](https://hex.pm/packages/phoenix_bootstrap_form)
-[![Build Status](https://travis-ci.org/GBH/phoenix_bootstrap_form.svg?style=flat&branch=master)](https://travis-ci.org/GBH/phoenix_bootstrap_form)
+[![Hex.pm](https://img.shields.io/hexpm/v/phoenix_mdbootstrap_form.svg?style=flat)](https://hex.pm/packages/phoenix_mdbootstrap_form)
+[![Build Status](https://travis-ci.org/fbettag/phoenix_mdbootstrap_form.svg?style=flat&branch=master)](https://travis-ci.org/fbettag/phoenix_mdbootstrap_form)
 
 ## Installation
 
-Add `phoenix_bootstrap_form` to your list of dependencies in `mix.exs`:
+Add `phoenix_mdbootstrap_form` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:phoenix_bootstrap_form, "~> 0.1.0"}]
+  [{:phoenix_mdbootstrap_form, "~> 0.1.0"}]
 end
 ```
 
 You may also alias this module in `web.ex` so it's shorter to type in templates.
 
 ```elixir
-alias PhoenixBootstrapForm, as: PBF
+alias PhoenixMDBootstrapForm, as: MDF
 ```
 
 ## Usage
 
 In order to change markup of form elements to bootstrap-style ones all you need is
-to prefix regular methods you aleady have with `PhoenixBootstrapForm`, or `PBF`
+to prefix regular methods you aleady have with `PhoenixMDBootstrapForm`, or `MDF`
 if you created an alias. For example:
 
 ```elixir
 <%= form_for @changeset, "/", fn f -> %>
-  <%= PBF.text_input f, :value %>
-  <%= PBF.submit f %>
+  <%= MDF.text_input f, :value %>
+  <%= MDF.submit f %>
 <% end %>
 ```
 
 Becomes bootstrap-styled:
 
+# FIXME this sample is not right
 ```html
 <form accept-charset="UTF-8" action="/" method="post">
   <div class="form-group row">
@@ -54,7 +55,7 @@ Becomes bootstrap-styled:
 </form>
 ```
 
-This library generates [horizonal form](https://getbootstrap.com/docs/4.0/components/forms/#horizontal-form)
+This library generates [horizonal form](https://mdbootstrap.com/docs/jquery/forms/basic/)
 layout that collapses down on small screens.
 
 You can always fall-back to default [Phoenix.HTML.Form](https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html)
@@ -69,6 +70,7 @@ Currently this module supports following methods:
 * textarea
 * telephone_input
 * select
+* multi-select
 * checkbox
 * checkboxes
 * radio_buttons
@@ -83,7 +85,7 @@ You can `mix phx.server` inside demo folder to see this reference template rende
 To set your own label you can do something like this:
 
 ```elixir
-<%= PBF.text_input f, :value, label: [text: "Custom"] %>
+<%= MDF.text_input f, :value, label: [text: "Custom"] %>
 ```
 
 ### CSS Classes
@@ -91,7 +93,7 @@ To set your own label you can do something like this:
 To add your own css class to the input element / controls do this:
 
 ```elixir
-<%= PBF.text_input f, :value, input: [class: "custom"] %>
+<%= MDF.text_input f, :value, input: [class: "custom"] %>
 ```
 
 ### Help Text
@@ -100,13 +102,13 @@ You can add help text under the input. It could also be rendered template with
 links, tables, and whatever else.
 
 ```elixir
-<%= PBF.text_input f, :value, input: [help: "Help text"] %>
+<%= MDF.text_input f, :value, input: [help: "Help text"] %>
 ```
 
 ### Prepending and Appending Inputs
 
 ```elixir
-<%= PBF.text_input f, :value, input: [prepend: "$", append: ".00"] %>
+<%= MDF.text_input f, :value, input: [prepend: "$", append: ".00"] %>
 ```
 
 ### Radio Buttons
@@ -115,20 +117,34 @@ You don't need to do multiple calls to create list of radio buttons. One method
 will do them all:
 
 ```elixir
-<%= PBF.radio_buttons f, :value, ["red", "green"] %>
+<%= MDF.radio_buttons f, :value, ["red", "green"] %>
 ```
 
 or with custom labels:
 
 ```elixir
-<%= PBF.radio_buttons f, :value, [{"R", "red"}, {"G", "green"}] %>
+<%= MDF.radio_buttons f, :value, [{"R", "red"}, {"G", "green"}] %>
 
 ```
 
 or rendered inline:
 
 ```elixir
-<%= PBF.radio_buttons f, :value, ["red", "green", "blue"], input: [inline: true] %>
+<%= MDF.radio_buttons f, :value, ["red", "green", "blue"], input: [inline: true] %>
+```
+
+### Select
+
+Works just like the standard `select` or `multiple_select` provided by Phoenix:
+
+```elixir
+<%= MDF.select f, :value, ["red", "green", "blue"] %>
+```
+
+or use a multiple select field:
+
+```elixir
+<%= MDF.multiple_select f, :value, ["red", "green", "blue"] %>
 ```
 
 ### Checkboxes
@@ -137,17 +153,18 @@ Very similar to `multiple_select` in functionality, you can render collection of
 checkboxes. Other options are the same as for `radio_buttons`
 
 ```elixir
-<%= PBF.checkboxes f, :value, ["red", "green", "blue"], selected: ["green"] %>
+<%= MDF.checkboxes f, :value, ["red", "green", "blue"], selected: ["green"] %>
 ```
+
 
 ### Submit Buttons
 
-Besides simple `PBF.submit f` you can define custom label and content that goes
+Besides simple `MDF.submit f` you can define custom label and content that goes
 next to the button. For example:
 
 ```elixir
 <% cancel = link "Cancel", to: "/", class: "btn btn-link" %>
-<%= PBF.submit f, "Smash", class: "btn-primary", alternative: cancel %>
+<%= MDF.submit f, "Smash", class: "btn-primary", alternative: cancel %>
 ```
 
 ### Static Elements
@@ -155,7 +172,7 @@ next to the button. For example:
 When you need to render a piece of content in the context of your form. For example:
 
 ```elixir
-<%= PBF.static f, "Current Avatar", avatar_image_tag %>
+<%= MDF.static f, "Current Avatar", avatar_image_tag %>
 ```
 
 ### Form Errors
@@ -167,7 +184,7 @@ In order to properly pull in i18n error messages specify `translate_error`
 function that handles it:
 
 ```elixir
-config :phoenix_bootstrap_form, [
+config :phoenix_mdbootstrap_form, [
   translate_error_function: &MyApp.ErrorHelpers.translate_error/1
 ]
 ```
@@ -186,7 +203,7 @@ You can change that by passing `label_col` and `control_col` with `form_for` lik
 If you need to change it application-wide just edit your `config.exs` and add:
 
 ```elixir
-config :phoenix_bootstrap_form,
+config :phoenix_mdbootstrap_form,
   label_col_class:    "col-sm-4",
   control_col_class:  "col-sm-8",
   label_align_class:  "text-sm-left",
@@ -194,6 +211,12 @@ config :phoenix_bootstrap_form,
 
 ```
 
+### Credit
+
+This repository has been forked from [GBH's phoenix_bootstrap_form](https://github.com/GBH/phoenix_bootstrap_form) and i just adjusted it for MD Bootstrap.
+
+
 ---
 
 Copyright 2017-2018, Oleg Khabarov
+Copyright 2019, Franz Bettag

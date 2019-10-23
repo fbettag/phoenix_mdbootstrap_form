@@ -1,0 +1,16 @@
+$fa-font-path: '~font-awesome/fonts';
+$roboto-font-path: '~mdbootstrap/font/roboto/' !default;
+$image-path: "~mdbootstrap/img/" !default;
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~mdbootstrap/scss/mdb.scss';
+
+/* Phoenix flash messages */
+.alert:empty {
+  display: none;
+}
+
+.custom-file-label {
+  margin-left: 15px !important;
+  margin-right: 15px !important;
+}

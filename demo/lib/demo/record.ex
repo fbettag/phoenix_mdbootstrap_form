@@ -5,6 +5,7 @@ defmodule Demo.Record do
 
   schema "records" do
     field :value, :string, virtual: true
+    field :array_value, {:array, :string}, virtual: true
     timestamps()
   end
 

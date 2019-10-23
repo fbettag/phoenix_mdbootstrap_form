@@ -1,8 +1,8 @@
-defmodule PhoenixBootstrapFormTest do
+defmodule PhoenixMDBootstrapFormTest do
   use ExUnit.Case
   import Phoenix.HTML
 
-  doctest PhoenixBootstrapForm
+  doctest PhoenixMDBootstrapForm
 
   setup do
     conn = Phoenix.ConnTest.build_conn()
@@ -11,7 +11,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "text_input", %{form: form} do
-    input = PhoenixBootstrapForm.text_input(form, :value)
+    input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -21,17 +21,18 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "file_input", %{form: form} do
-    input = PhoenixBootstrapForm.file_input(form, :value)
+    input = PhoenixMDBootstrapForm.file_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
-      ~s(<div class="col-sm-10">) <>
-      ~s(<input class="form-control " id="record_value" name="record[value]" type="file">) <>
+      ~s(<div class="custom-file col-sm-10">) <>
+      ~s(<input class="custom-file-input " id="record_value" name="record[value]" type="file">) <>
+      ~s(<label class="custom-file-label">Browse</label>) <>
       ~s(</div></div>)
   end
 
   test "email_input", %{form: form} do
-    input = PhoenixBootstrapForm.email_input(form, :value)
+    input = PhoenixMDBootstrapForm.email_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -41,7 +42,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "password_input", %{form: form} do
-    input = PhoenixBootstrapForm.password_input(form, :value)
+    input = PhoenixMDBootstrapForm.password_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -51,7 +52,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "textarea", %{form: form} do
-    input = PhoenixBootstrapForm.textarea(form, :value)
+    input = PhoenixMDBootstrapForm.textarea(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -61,7 +62,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "telephone_input", %{form: form} do
-    input = PhoenixBootstrapForm.telephone_input(form, :value)
+    input = PhoenixMDBootstrapForm.telephone_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -71,7 +72,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "select", %{form: form} do
-    input = PhoenixBootstrapForm.select(form, :value, ["option"])
+    input = PhoenixMDBootstrapForm.select(form, :value, ["option"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -81,8 +82,20 @@ defmodule PhoenixBootstrapFormTest do
       ~s(</select></div></div>)
   end
 
+  test "multiple_select", %{form: form} do
+    input = PhoenixMDBootstrapForm.multiple_select(form, :value, ["option1", "option2"])
+    assert safe_to_string(input) ==
+      ~s(<div class="form-group row">) <>
+      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<div class="col-sm-10">) <>
+      ~s(<select class="form-control " id="record_value" name="record[value]" multiple>) <>
+      ~s(<option value="option1">option1</option>) <>
+      ~s(<option value="option2">option2</option>) <>
+      ~s(</select></div></div>)
+  end
+
   test "checkbox", %{form: form} do
-    input = PhoenixBootstrapForm.checkbox(form, :value)
+    input = PhoenixMDBootstrapForm.checkbox(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<div class="col-sm-10 ml-auto">) <>
@@ -94,7 +107,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "radio_buttons", %{form: form} do
-    input = PhoenixBootstrapForm.radio_buttons(form, :value, ["red", "green"])
+    input = PhoenixMDBootstrapForm.radio_buttons(form, :value, ["red", "green"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
@@ -111,7 +124,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "radio_buttons with custom labels", %{form: form} do
-    input = PhoenixBootstrapForm.radio_buttons(form, :value, [{"R", "red"}, {"G", "green"}])
+    input = PhoenixMDBootstrapForm.radio_buttons(form, :value, [{"R", "red"}, {"G", "green"}])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
@@ -128,7 +141,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "radio_buttons with inline", %{form: form} do
-    input = PhoenixBootstrapForm.radio_buttons(form, :value, ["red", "green"], input: [inline: true])
+    input = PhoenixMDBootstrapForm.radio_buttons(form, :value, ["red", "green"], input: [inline: true])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
@@ -145,7 +158,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "checkboxes", %{form: form} do
-    input = PhoenixBootstrapForm.checkboxes(form, :value, ["red", "green"])
+    input = PhoenixMDBootstrapForm.checkboxes(form, :value, ["red", "green"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
@@ -162,13 +175,13 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "checkboxes selected", %{form: form} do
-    input = PhoenixBootstrapForm.checkboxes(form, :value, ["red", "green"], selected: ["red"])
+    input = PhoenixMDBootstrapForm.checkboxes(form, :value, ["red", "green"], selected: ["red"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<div class="form-check ">) <>
-      ~s(<input checked="checked" class="form-check-input " id="record_value_red" name="record[value][]" type="checkbox" value="red">) <>
+      ~s(<input class="form-check-input " id="record_value_red" name="record[value][]" type="checkbox" value="red" checked>) <>
       ~s(<label class="form-check-label" for="record_value_red">Red</label>) <>
       ~s(</div>) <>
       ~s(<div class="form-check ">) <>
@@ -179,7 +192,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "submit", %{form: form} do
-    input = PhoenixBootstrapForm.submit(form)
+    input = PhoenixMDBootstrapForm.submit(form)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<div class="col-sm-10 ml-auto">) <>
@@ -188,7 +201,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "submit with label", %{form: form} do
-    input = PhoenixBootstrapForm.submit(form, "Smash")
+    input = PhoenixMDBootstrapForm.submit(form, "Smash")
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<div class="col-sm-10 ml-auto">) <>
@@ -197,7 +210,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "submit with alternative", %{form: form} do
-    input = PhoenixBootstrapForm.submit(form, "Smash", alternative: "Cancel")
+    input = PhoenixMDBootstrapForm.submit(form, "Smash", alternative: "Cancel")
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<div class="col-sm-10 ml-auto">) <>
@@ -207,7 +220,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "static", %{form: form} do
-    input = PhoenixBootstrapForm.static(form, "Label", "Content")
+    input = PhoenixMDBootstrapForm.static(form, "Label", "Content")
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2">Label</label>) <>
@@ -216,7 +229,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "with custom class", %{form: form} do
-    input = PhoenixBootstrapForm.text_input(form, :value, input: [class: "custom"])
+    input = PhoenixMDBootstrapForm.text_input(form, :value, input: [class: "custom"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -226,7 +239,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "with custom label", %{form: form} do
-    input = PhoenixBootstrapForm.text_input(form, :value, label: [text: "Custom"])
+    input = PhoenixMDBootstrapForm.text_input(form, :value, label: [text: "Custom"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Custom</label>) <>
@@ -236,7 +249,7 @@ defmodule PhoenixBootstrapFormTest do
   end
 
   test "with help attribute", %{form: form} do
-    input = PhoenixBootstrapForm.text_input(form, :value, input: [help: "help text"])
+    input = PhoenixMDBootstrapForm.text_input(form, :value, input: [help: "help text"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -249,7 +262,7 @@ defmodule PhoenixBootstrapFormTest do
   test "with custom grid", %{conn: conn} do
     opts  = [as: :record, label_col: "col-sm-3", control_col: "col-sm-9", label_align: "text-sm-left"]
     form  = Phoenix.HTML.FormData.to_form(conn, opts)
-    input = PhoenixBootstrapForm.text_input(form, :value)
+    input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-left col-sm-3" for="record_value">Value</label>) <>
@@ -261,7 +274,7 @@ defmodule PhoenixBootstrapFormTest do
   test "with errors", %{form: form} do
     error = [value: {"Some error", []}]
     form = %Phoenix.HTML.Form{form | errors: error}
-    input = PhoenixBootstrapForm.text_input(form, :value)
+    input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -274,7 +287,7 @@ defmodule PhoenixBootstrapFormTest do
   test "with dynamic errors", %{form: form} do
     error = [value: {"Got errors - %{count}", [count: 10]}]
     form = %Phoenix.HTML.Form{form | errors: error}
-    input = PhoenixBootstrapForm.text_input(form, :value)
+    input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
@@ -287,7 +300,7 @@ defmodule PhoenixBootstrapFormTest do
   test "with errors for radio buttons", %{form: form} do
     error = [value: {"Some error", []}]
     form = %Phoenix.HTML.Form{form | errors: error}
-    input = PhoenixBootstrapForm.radio_buttons(form, :value, ["A", "B"])
+    input = PhoenixMDBootstrapForm.radio_buttons(form, :value, ["A", "B"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
       ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
