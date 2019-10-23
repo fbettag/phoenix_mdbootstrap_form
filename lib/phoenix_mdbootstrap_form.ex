@@ -315,7 +315,7 @@ defmodule PhoenixMDBootstrapForm do
     {text, label_opts} = Keyword.pop(label_opts, :text, Form.humanize(field))
 
     label_opts =
-      [class: "col-form-label #{label_align_class(form)} #{label_col_class(form)}"] ++ label_opts
+      [class: "#{label_align_class(form)} #{label_col_class(form)}"] ++ label_opts
 
     label_opts = merge_css_classes(label_opts)
 
