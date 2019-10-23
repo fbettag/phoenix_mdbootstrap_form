@@ -199,14 +199,14 @@ You can change that by passing `label_col` and `control_col` with `form_for` lik
 
 ```
 
-If you need to change it application-wide just edit your `config.exs` and add:
+If you need to change it application-wide just edit your `config.exs` and play around with these:
 
 ```elixir
 config :phoenix_mdbootstrap_form,
-  label_col_class:    "col-sm-4",
-  control_col_class:  "col-sm-8",
-  label_align_class:  "text-sm-left",
-  form_group_class:   "form-group myclass"
+  label_col_class:    "col-form-label col-sm-2",
+  control_col_class:  "col-sm-10",
+  label_align_class:  "text-sm-right",
+  form_group_class:   "form-group row"
 
 ```
 
