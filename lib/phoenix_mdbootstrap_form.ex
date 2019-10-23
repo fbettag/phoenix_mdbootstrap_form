@@ -2,7 +2,7 @@ defmodule PhoenixMDBootstrapForm do
   alias Phoenix.HTML
   alias Phoenix.HTML.{Tag, Form}
 
-  @label_col_class "col-sm-2"
+  @label_col_class "col-form-label col-sm-2"
   @control_col_class "col-sm-10"
   @label_align_class "text-sm-right"
   @form_group_class "form-group row"
@@ -174,7 +174,7 @@ defmodule PhoenixMDBootstrapForm do
       Tag.content_tag(
         :label,
         label,
-        class: "col-form-label #{label_align_class(form)} #{label_col_class(form)}"
+        class: "#{label_align_class(form)} #{label_col_class(form)}"
       )
 
     content =

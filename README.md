@@ -11,7 +11,7 @@ Add `phoenix_mdbootstrap_form` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:phoenix_mdbootstrap_form, "~> 0.0.1"}]
+  [{:phoenix_mdbootstrap_form, "~> 0.0.2"}]
 end
 ```
 
@@ -36,7 +36,6 @@ if you created an alias. For example:
 
 Becomes bootstrap-styled:
 
-# FIXME this sample is not right
 ```html
 <form accept-charset="UTF-8" action="/" method="post">
   <div class="form-group row">
