@@ -19,7 +19,7 @@ defmodule PhoenixMDBootstrapFormErrorHelperTest do
     input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control is-invalid" id="record_value" name="record[value]" type="text">) <>
       ~s(<div class="invalid-feedback">Got errors - 10</div>) <>

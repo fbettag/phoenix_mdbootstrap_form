@@ -14,7 +14,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control " id="record_value" name="record[value]" type="text">) <>
       ~s(</div></div>)
@@ -24,7 +24,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.file_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="custom-file col-sm-10">) <>
       ~s(<input class="custom-file-input " id="record_value" name="record[value]" type="file">) <>
       ~s(<label class="custom-file-label">Browse</label>) <>
@@ -35,7 +35,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.email_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control " id="record_value" name="record[value]" type="email">) <>
       ~s(</div></div>)
@@ -45,7 +45,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.password_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control " id="record_value" name="record[value]" type="password">) <>
       ~s(</div></div>)
@@ -55,7 +55,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.textarea(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<textarea class="form-control " id="record_value" name="record[value]">\n</textarea>) <>
       ~s(</div></div>)
@@ -65,7 +65,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.telephone_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control " id="record_value" name="record[value]" type="tel">) <>
       ~s(</div></div>)
@@ -75,7 +75,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.select(form, :value, ["option"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<select class="form-control " id="record_value" name="record[value]">) <>
       ~s(<option value="option">option</option>) <>
@@ -86,7 +86,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.multiple_select(form, :value, ["option1", "option2"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<select class="form-control " id="record_value" name="record[value]" multiple>) <>
       ~s(<option value="option1">option1</option>) <>
@@ -110,7 +110,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.radio_buttons(form, :value, ["red", "green"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
+      ~s(<span class="col-form-label col-sm-2 text-sm-right">Value</span>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<div class="form-check ">) <>
       ~s(<input class="form-check-input " id="record_value_red" name="record[value]" type="radio" value="red">) <>
@@ -127,7 +127,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.radio_buttons(form, :value, [{"R", "red"}, {"G", "green"}])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
+      ~s(<span class="col-form-label col-sm-2 text-sm-right">Value</span>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<div class="form-check ">) <>
       ~s(<input class="form-check-input " id="record_value_red" name="record[value]" type="radio" value="red">) <>
@@ -144,7 +144,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.radio_buttons(form, :value, ["red", "green"], input: [inline: true])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
+      ~s(<span class="col-form-label col-sm-2 text-sm-right">Value</span>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<div class="form-check form-check-inline">) <>
       ~s(<input class="form-check-input " id="record_value_red" name="record[value]" type="radio" value="red">) <>
@@ -161,7 +161,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.checkboxes(form, :value, ["red", "green"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
+      ~s(<span class="col-form-label col-sm-2 text-sm-right">Value</span>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<div class="form-check ">) <>
       ~s(<input class="form-check-input " id="record_value_red" name="record[value][]" type="checkbox" value="red">) <>
@@ -178,7 +178,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.checkboxes(form, :value, ["red", "green"], selected: ["red"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
+      ~s(<span class="col-form-label col-sm-2 text-sm-right">Value</span>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<div class="form-check ">) <>
       ~s(<input class="form-check-input " id="record_value_red" name="record[value][]" type="checkbox" value="red" checked>) <>
@@ -223,7 +223,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.static(form, "Label", "Content")
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2">Label</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right">Label</label>) <>
       ~s(<div class="form-control-plaintext col-sm-10">Content</div>) <>
       ~s(</div>)
   end
@@ -232,7 +232,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.text_input(form, :value, input: [class: "custom"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control  custom" id="record_value" name="record[value]" type="text">) <>
       ~s(</div></div>)
@@ -242,7 +242,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.text_input(form, :value, label: [text: "Custom"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Custom</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Custom</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control " id="record_value" name="record[value]" type="text">) <>
       ~s(</div></div>)
@@ -252,7 +252,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.text_input(form, :value, input: [help: "help text"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control " id="record_value" name="record[value]" type="text">) <>
       ~s(<small class="form-text text-muted">help text</small>) <>
@@ -260,12 +260,12 @@ defmodule PhoenixMDBootstrapFormTest do
   end
 
   test "with custom grid", %{conn: conn} do
-    opts  = [as: :record, label_col: "col-sm-3", control_col: "col-sm-9", label_align: "text-sm-left"]
+    opts  = [as: :record, label_col: "col-sm-3 col-form-label", control_col: "col-sm-9", label_align: "text-sm-left"]
     form  = Phoenix.HTML.FormData.to_form(conn, opts)
     input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-left col-sm-3" for="record_value">Value</label>) <>
+      ~s(<label class="col-sm-3 col-form-label text-sm-left" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-9">) <>
       ~s(<input class="form-control " id="record_value" name="record[value]" type="text">) <>
       ~s(</div></div>)
@@ -277,7 +277,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control is-invalid" id="record_value" name="record[value]" type="text">) <>
       ~s(<div class="invalid-feedback">Some error</div>) <>
@@ -290,7 +290,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.text_input(form, :value)
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<label class="col-form-label text-sm-right col-sm-2" for="record_value">Value</label>) <>
+      ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<input class="form-control is-invalid" id="record_value" name="record[value]" type="text">) <>
       ~s(<div class="invalid-feedback">Got errors - 10</div>) <>
@@ -303,7 +303,7 @@ defmodule PhoenixMDBootstrapFormTest do
     input = PhoenixMDBootstrapForm.radio_buttons(form, :value, ["A", "B"])
     assert safe_to_string(input) ==
       ~s(<div class="form-group row">) <>
-      ~s(<span class="col-form-label text-sm-right col-sm-2">Value</span>) <>
+      ~s(<span class="col-form-label col-sm-2 text-sm-right">Value</span>) <>
       ~s(<div class="col-sm-10">) <>
       ~s(<div class="form-check ">) <>
       ~s(<input class="form-check-input is-invalid" id="record_value_A" name="record[value]" type="radio" value="A">) <>

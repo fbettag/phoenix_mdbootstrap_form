@@ -47,7 +47,7 @@
 
 <h4>Custom Grid</h4>
 
-<%= form_for @changeset, "/", [label_col: "col-sm-3", control_col: "col-sm-9"], fn f -> %>
+<%= form_for @changeset, "/", [label_col: "col-form-label col-sm-3", control_col: "col-sm-9"], fn f -> %>
   <%= MDF.text_input f, :value %>
   <%= MDF.submit f %>
 <% end %>
