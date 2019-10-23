@@ -45,7 +45,7 @@ defmodule PhoenixMDBootstrapForm do
         ]
       end
 
-    draw_form_group("", content)
+    draw_form_group("", content, opts)
   end
 
   def checkboxes(form = %Form{}, field, values, opts \\ []) when is_list(values) do
@@ -108,7 +108,8 @@ defmodule PhoenixMDBootstrapForm do
 
     draw_form_group(
       draw_label(form, field, opts),
-      content
+      content,
+      opts
     )
   end
 
@@ -160,7 +161,8 @@ defmodule PhoenixMDBootstrapForm do
 
     draw_form_group(
       draw_label(form, field, opts),
-      content
+      content,
+      opts
     )
   end
 
@@ -180,7 +182,7 @@ defmodule PhoenixMDBootstrapForm do
     content =
       Tag.content_tag(:div, content, class: "form-control-plaintext #{control_col_class(form)}")
 
-    draw_form_group(label, content)
+    draw_form_group(label, content, [])
   end
 
   # -- Private methods ---------------------------------------------------------
@@ -199,8 +201,9 @@ defmodule PhoenixMDBootstrapForm do
     Keyword.get(form.options, :label_align, default)
   end
 
-  defp form_group_class() do
-    Application.get_env(:phoenix_mdbootstrap_form, :form_group_class, @form_group_class)
+  defp form_group_class(opts) do
+    default = Application.get_env(:phoenix_mdbootstrap_form, :form_group_class, @form_group_class)
+    Keyword.get(opts, :form_group, default)
   end
 
   defp merge_css_classes(opts) do
@@ -248,7 +251,8 @@ defmodule PhoenixMDBootstrapForm do
   defp draw_generic_input(type, form, field, options, opts) do
     draw_form_group(
       draw_label(form, field, opts),
-      draw_control(type, form, field, options, opts)
+      draw_control(type, form, field, options, opts),
+      opts
     )
   end
 
@@ -304,8 +308,8 @@ defmodule PhoenixMDBootstrapForm do
     apply(Form, type, [form, field, merge_css_classes(opts)])
   end
 
-  defp draw_form_group(label, content) do
-    Tag.content_tag :div, class: form_group_class() do
+  defp draw_form_group(label, content, opts) do
+    Tag.content_tag :div, class: form_group_class(opts) do
       [label, content]
     end
   end
@@ -369,7 +373,7 @@ defmodule PhoenixMDBootstrapForm do
         [Form.submit(label || "Submit", merge_css_classes(opts)), alternative]
       end
 
-    draw_form_group("", content)
+    draw_form_group("", content, opts)
   end
 
   defp draw_form_check(input, label, for_attr, error, is_inline) do
