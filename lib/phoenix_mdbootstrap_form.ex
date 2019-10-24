@@ -16,7 +16,7 @@ defmodule PhoenixMDBootstrapForm do
     draw_generic_input(:select, form, field, options, multi_opts)
   end
 
-  [:text_input, :file_input, :email_input, :password_input, :textarea, :telephone_input]
+  [:text_input, :file_input, :email_input, :password_input, :textarea, :telephone_input, :number_input]
   |> Enum.each(fn method ->
     def unquote(method)(form = %Form{}, field, opts \\ []) when is_atom(field) do
       draw_generic_input(unquote(method), form, field, nil, opts)
@@ -272,7 +272,7 @@ defmodule PhoenixMDBootstrapForm do
 
       help = draw_help(help)
       error = draw_error_message(get_error(form, field))
-      label = Tag.content_tag(:label, "Browse", [class: "custom-file-label"])
+      label = Tag.content_tag(:label, "", [class: "custom-file-label"])
 
       [input, label, error, help]
     end
