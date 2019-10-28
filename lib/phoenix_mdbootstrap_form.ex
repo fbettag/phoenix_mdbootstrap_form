@@ -28,7 +28,10 @@ defmodule PhoenixMDBootstrapForm do
     {input_opts, _} = Keyword.pop(opts, :input, [])
     {help, input_opts} = Keyword.pop(input_opts, :help)
 
-    label = Keyword.get(label_opts, :text, Form.humanize(field))
+    label = case Keyword.get(label_opts, :show, true) do
+      true -> Keyword.get(label_opts, :text, Form.humanize(field))
+      false -> ""
+    end
 
     checkbox =
       Form.checkbox(form, field, class: "form-check-input " <> is_valid_class(form, field))
@@ -316,19 +319,23 @@ defmodule PhoenixMDBootstrapForm do
 
   defp draw_label(form, field, opts) when is_atom(field) do
     label_opts = Keyword.get(opts, :label, [])
-    {text, label_opts} = Keyword.pop(label_opts, :text, Form.humanize(field))
-
-    label_opts =
-      [class: "#{label_col_class(form)} #{label_align_class(form)}"] ++ label_opts
-
-    label_opts = merge_css_classes(label_opts)
-
-    {is_span, label_opts} = Keyword.pop(label_opts, :span, false)
-
-    if is_span do
-      Tag.content_tag(:span, text, label_opts)
+    if !Keyword.get(label_opts, :show, true) do
+      Tag.content_tag(:span, "")
     else
-      Form.label(form, field, text, label_opts)
+      {text, label_opts} = Keyword.pop(label_opts, :text, Form.humanize(field))
+
+      label_opts =
+        [class: "#{label_col_class(form)} #{label_align_class(form)}"] ++ label_opts
+
+      label_opts = merge_css_classes(label_opts)
+
+      {is_span, label_opts} = Keyword.pop(label_opts, :span, false)
+
+      if is_span do
+        Tag.content_tag(:span, text, label_opts)
+      else
+        Form.label(form, field, text, label_opts)
+      end
     end
   end
 

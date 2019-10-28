@@ -6,7 +6,7 @@ defmodule PhoenixMDBootstrapForm.Mixfile do
   def project do
     [
       app:              :phoenix_mdbootstrap_form,
-      version:          "0.0.5",
+      version:          "0.0.6",
       elixir:           "~> 1.4",
       source_url:       @project_url,
       homepage_url:     @project_url,
@@ -30,10 +30,6 @@ defmodule PhoenixMDBootstrapForm.Mixfile do
       {:jason,        "~> 1.0"},
       {:ex_doc,       "~> 0.19", only: :dev}
     ]
-  end
-
-  defp description do
-    "Format your application forms with Material Design Bootstrap markup."
   end
 
   defp package do
