@@ -29,7 +29,8 @@ defmodule PhoenixMDBootstrapForm.Mixfile do
       {:phoenix_html, "~> 2.11"},
       {:phoenix,      "~> 1.4.10"},
       {:jason,        "~> 1.0"},
-      {:ex_doc,       "~> 0.19", only: :dev}
+      {:ex_doc,       "~> 0.19", only: :dev},
+      {:credo,        github: "rrrene/credo", only: [:dev, :test]},
     ]
   end
 

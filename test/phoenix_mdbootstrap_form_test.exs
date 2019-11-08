@@ -27,7 +27,7 @@ defmodule PhoenixMDBootstrapFormTest do
       ~s(<label class="col-form-label col-sm-2 text-sm-right" for="record_value">Value</label>) <>
       ~s(<div class="custom-file col-sm-10">) <>
       ~s(<input class="custom-file-input " id="record_value" name="record[value]" type="file">) <>
-      ~s(<label class="custom-file-label">Browse</label>) <>
+      ~s(<label class="custom-file-label"></label>) <>
       ~s(</div></div>)
   end
 

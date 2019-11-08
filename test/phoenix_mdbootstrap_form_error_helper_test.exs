@@ -13,7 +13,7 @@ defmodule PhoenixMDBootstrapFormErrorHelperTest do
     {:ok, [conn: conn, form: form]}
   end
 
-  test "custom error helper", %{form: form} do
+  test "with dynamic errors", %{form: form} do
     error = [value: {"Got errors - %{count}", [count: 10]}]
     form = %Phoenix.HTML.Form{form | errors: error}
     input = PhoenixMDBootstrapForm.text_input(form, :value)

@@ -1,4 +1,8 @@
 defmodule PhoenixMDBootstrapForm do
+  @moduledoc """
+  This module provides helper methods for creating beautiful looking Material Design Bootstrap forms in Phoenix.
+  """
+
   alias Phoenix.HTML
   alias Phoenix.HTML.{Tag, Form}
 
@@ -70,7 +74,7 @@ defmodule PhoenixMDBootstrapForm do
 
         # error needs to show up only on last element
         input_error =
-          if(Enum.count(values) - 1 == index) do
+          if Enum.count(values) - 1 == index do
             error
           else
             ""
@@ -134,7 +138,7 @@ defmodule PhoenixMDBootstrapForm do
 
         # error needs to show up only on last element
         radio_error =
-          if(Enum.count(values) - 1 == index) do
+          if Enum.count(values) - 1 == index do
             error
           else
             ""
@@ -269,9 +273,8 @@ defmodule PhoenixMDBootstrapForm do
       {append, input_opts} = Keyword.pop(input_opts, :append)
       {help, input_opts} = Keyword.pop(input_opts, :help)
 
-      input =
-        draw_input(type, form, field, options, input_opts)
-        |> draw_input_group(prepend, append)
+      input = draw_input(type, form, field, options, input_opts)
+               |> draw_input_group(prepend, append)
 
       help = draw_help(help)
       error = draw_error_message(get_error(form, field))
@@ -292,9 +295,8 @@ defmodule PhoenixMDBootstrapForm do
       {append, input_opts} = Keyword.pop(input_opts, :append)
       {help, input_opts} = Keyword.pop(input_opts, :help)
 
-      input =
-        draw_input(type, form, field, options, input_opts)
-        |> draw_input_group(prepend, append)
+      input = draw_input(type, form, field, options, input_opts)
+               |> draw_input_group(prepend, append)
 
       help = draw_help(help)
       error = draw_error_message(get_error(form, field))
@@ -319,9 +321,7 @@ defmodule PhoenixMDBootstrapForm do
 
   defp draw_label(form, field, opts) when is_atom(field) do
     label_opts = Keyword.get(opts, :label, [])
-    if !Keyword.get(label_opts, :show, true) do
-      Tag.content_tag(:span, "")
-    else
+    if Keyword.get(label_opts, :show, true) do
       {text, label_opts} = Keyword.pop(label_opts, :text, Form.humanize(field))
 
       label_opts =
@@ -336,6 +336,8 @@ defmodule PhoenixMDBootstrapForm do
       else
         Form.label(form, field, text, label_opts)
       end
+    else
+      Tag.content_tag(:span, "")
     end
   end
 
