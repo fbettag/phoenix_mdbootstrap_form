@@ -16,6 +16,7 @@ defmodule PhoenixMDBootstrapForm.Mixfile do
       build_embedded:   Mix.env == :prod,
       start_permanent:  Mix.env == :prod,
       package:          package(),
+      aliases:          aliases(),
       deps:             deps()
     ]
   end
@@ -40,6 +41,13 @@ defmodule PhoenixMDBootstrapForm.Mixfile do
       maintainers:  ["Franz Bettag"],
       licenses:     ["MIT"],
       links:        %{"GitHub" => @project_url}
+    ]
+  end
+
+  defp aliases do
+    [
+      test: ["test", "credo -a --strict"],
+      "hex.publish": ["test", "hex.publish"],
     ]
   end
 
