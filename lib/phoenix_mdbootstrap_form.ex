@@ -11,16 +11,67 @@ defmodule PhoenixMDBootstrapForm do
   @label_align_class "text-sm-right"
   @form_group_class "form-group row"
 
+  defp special_select(form = %Form{}, field, class, opts) do
+    input =
+      Tag.content_tag :div, class: control_col_class(form) do
+        is_valid_class = is_valid_class(form, field)
+
+        input_opts =
+          [class: "form-control #{is_valid_class}"] ++
+            Keyword.get(opts, :input, []) ++
+            Keyword.get(opts, :multiple, [])
+
+        prepend = Tag.content_tag(:i, "", class: "fas input-prefix #{class}")
+        {help, input_opts} = Keyword.pop(input_opts, :help)
+
+        input =
+          draw_input(:text_input, form, field, nil, input_opts)
+          |> draw_input_group(prepend, nil)
+
+        help = draw_help(help)
+        error = draw_error_message(get_error(form, field))
+
+        [input, error, help]
+      end
+
+    Tag.content_tag :div, class: form_group_class(opts) do
+      [
+        draw_label(form, field, opts),
+        input
+      ]
+    end
+  end
+
+  def time_select(form = %Form{}, field, opts \\ []) do
+    special_select(form, field, "fa-clock date-picker", opts)
+  end
+
+  def date_select(form = %Form{}, field, opts \\ []) do
+    special_select(form, field, "fa-calendar date-picker", opts)
+  end
+
+  def datetime_select(form = %Form{}, field, opts \\ []) do
+    special_select(form, field, "fa-calendar date-picker", opts)
+  end
+
   def select(form = %Form{}, field, options, opts \\ []) do
     draw_generic_input(:select, form, field, options, opts)
   end
 
   def multiple_select(form = %Form{}, field, options, opts \\ []) do
-    multi_opts = Keyword.put_new(opts, :multiple, [multiple: true])
+    multi_opts = Keyword.put_new(opts, :multiple, multiple: true)
     draw_generic_input(:select, form, field, options, multi_opts)
   end
 
-  [:text_input, :file_input, :email_input, :password_input, :textarea, :telephone_input, :number_input]
+  [
+    :text_input,
+    :file_input,
+    :email_input,
+    :password_input,
+    :textarea,
+    :telephone_input,
+    :number_input
+  ]
   |> Enum.each(fn method ->
     def unquote(method)(form = %Form{}, field, opts \\ []) when is_atom(field) do
       draw_generic_input(unquote(method), form, field, nil, opts)
@@ -32,10 +83,11 @@ defmodule PhoenixMDBootstrapForm do
     {input_opts, _} = Keyword.pop(opts, :input, [])
     {help, input_opts} = Keyword.pop(input_opts, :help)
 
-    label = case Keyword.get(label_opts, :show, true) do
-      true -> Keyword.get(label_opts, :text, Form.humanize(field))
-      false -> ""
-    end
+    label =
+      case Keyword.get(label_opts, :show, true) do
+        true -> Keyword.get(label_opts, :text, Form.humanize(field))
+        false -> ""
+      end
 
     checkbox =
       Form.checkbox(form, field, class: "form-check-input " <> is_valid_class(form, field))
@@ -199,12 +251,16 @@ defmodule PhoenixMDBootstrapForm do
   end
 
   defp control_col_class(form) do
-    default = Application.get_env(:phoenix_mdbootstrap_form, :control_col_class, @control_col_class)
+    default =
+      Application.get_env(:phoenix_mdbootstrap_form, :control_col_class, @control_col_class)
+
     Keyword.get(form.options, :control_col, default)
   end
 
   defp label_align_class(form) do
-    default = Application.get_env(:phoenix_mdbootstrap_form, :label_align_class, @label_align_class)
+    default =
+      Application.get_env(:phoenix_mdbootstrap_form, :label_align_class, @label_align_class)
+
     Keyword.get(form.options, :label_align, default)
   end
 
@@ -266,19 +322,22 @@ defmodule PhoenixMDBootstrapForm do
   defp draw_control(:file_input = type, form, field, options, opts) do
     Tag.content_tag :div, class: "custom-file #{control_col_class(form)}" do
       is_valid_class = is_valid_class(form, field)
-      input_opts = [class: "custom-file-input #{is_valid_class}"] ++
-        Keyword.get(opts, :input, [])
+
+      input_opts =
+        [class: "custom-file-input #{is_valid_class}"] ++
+          Keyword.get(opts, :input, [])
 
       {prepend, input_opts} = Keyword.pop(input_opts, :prepend)
       {append, input_opts} = Keyword.pop(input_opts, :append)
       {help, input_opts} = Keyword.pop(input_opts, :help)
 
-      input = draw_input(type, form, field, options, input_opts)
-               |> draw_input_group(prepend, append)
+      input =
+        draw_input(type, form, field, options, input_opts)
+        |> draw_input_group(prepend, append)
 
       help = draw_help(help)
       error = draw_error_message(get_error(form, field))
-      label = Tag.content_tag(:label, "", [class: "custom-file-label"])
+      label = Tag.content_tag(:label, "", class: "custom-file-label")
 
       [input, label, error, help]
     end
@@ -287,16 +346,19 @@ defmodule PhoenixMDBootstrapForm do
   defp draw_control(type, form, field, options, opts) do
     Tag.content_tag :div, class: control_col_class(form) do
       is_valid_class = is_valid_class(form, field)
-      input_opts = [class: "form-control #{is_valid_class}"] ++
-        Keyword.get(opts, :input, []) ++
-        Keyword.get(opts, :multiple, [])
+
+      input_opts =
+        [class: "form-control #{is_valid_class}"] ++
+          Keyword.get(opts, :input, []) ++
+          Keyword.get(opts, :multiple, [])
 
       {prepend, input_opts} = Keyword.pop(input_opts, :prepend)
       {append, input_opts} = Keyword.pop(input_opts, :append)
       {help, input_opts} = Keyword.pop(input_opts, :help)
 
-      input = draw_input(type, form, field, options, input_opts)
-               |> draw_input_group(prepend, append)
+      input =
+        draw_input(type, form, field, options, input_opts)
+        |> draw_input_group(prepend, append)
 
       help = draw_help(help)
       error = draw_error_message(get_error(form, field))
@@ -321,11 +383,11 @@ defmodule PhoenixMDBootstrapForm do
 
   defp draw_label(form, field, opts) when is_atom(field) do
     label_opts = Keyword.get(opts, :label, [])
+
     if Keyword.get(label_opts, :show, true) do
       {text, label_opts} = Keyword.pop(label_opts, :text, Form.humanize(field))
 
-      label_opts =
-        [class: "#{label_col_class(form)} #{label_align_class(form)}"] ++ label_opts
+      label_opts = [class: "#{label_col_class(form)} #{label_align_class(form)}"] ++ label_opts
 
       label_opts = merge_css_classes(label_opts)
 
