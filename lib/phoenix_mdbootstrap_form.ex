@@ -11,17 +11,17 @@ defmodule PhoenixMDBootstrapForm do
   @label_align_class "text-sm-right"
   @form_group_class "form-group row"
 
-  defp special_select(form = %Form{}, field, class, opts) do
+  defp special_select(form = %Form{}, field, icon, class, opts) do
     input =
       Tag.content_tag :div, class: control_col_class(form) do
         is_valid_class = is_valid_class(form, field)
 
         input_opts =
-          [class: "form-control #{is_valid_class}"] ++
+          [class: "form-control #{is_valid_class} #{class}"] ++
             Keyword.get(opts, :input, []) ++
             Keyword.get(opts, :multiple, [])
 
-        prepend = Tag.content_tag(:i, "", class: "fas input-prefix #{class}")
+        prepend = Tag.content_tag(:i, "", class: "fas input-prefix #{icon}")
         {help, input_opts} = Keyword.pop(input_opts, :help)
 
         input =
@@ -43,15 +43,15 @@ defmodule PhoenixMDBootstrapForm do
   end
 
   def time_select(form = %Form{}, field, opts \\ []) do
-    special_select(form, field, "fa-clock time-picker", opts)
+    special_select(form, field, "fa-clock", "time-picker", opts)
   end
 
   def date_select(form = %Form{}, field, opts \\ []) do
-    special_select(form, field, "fa-calendar date-picker", opts)
+    special_select(form, field, "fa-calendar", "date-picker", opts)
   end
 
   def datetime_select(form = %Form{}, field, opts \\ []) do
-    special_select(form, field, "fa-calendar date-time-picker", opts)
+    special_select(form, field, "fa-calendar", "date-time-picker", opts)
   end
 
   def select(form = %Form{}, field, options, opts \\ []) do
