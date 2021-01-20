@@ -450,8 +450,14 @@ defmodule PhoenixMDBootstrapForm do
 
   @doc "Creates submit button."
   def submit(form = %Form{}, opts) when is_list(opts), do: draw_submit(form, nil, opts)
+
+  @doc "Creates submit button."
   def submit(form = %Form{}, label), do: draw_submit(form, label, [])
+
+  @doc "Creates submit button."
   def submit(form = %Form{}, label, opts \\ []), do: draw_submit(form, label, opts)
+
+  @doc "Creates submit button."
   def submit(form = %Form{}), do: draw_submit(form, nil, [])
 
   @doc "Creates static form field without any field required in the changeset."
