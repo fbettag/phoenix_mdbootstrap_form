@@ -2,20 +2,19 @@
 
 Format your application forms with [Material Design Bootstrap 4](https://mdbootstrap.com) markup.
 
-[![Hex.pm](https://img.shields.io/hexpm/v/phoenix_mdbootstrap_form.svg?style=flat)](https://hex.pm/packages/phoenix_mdbootstrap_form)
-[![Build Status](https://travis-ci.org/fbettag/phoenix_mdbootstrap_form.svg?style=flat&branch=master)](https://travis-ci.org/fbettag/phoenix_mdbootstrap_form)
-
 ## Installation
 
-Add `phoenix_mdbootstrap_form` to your list of dependencies in `mix.exs`:
+This package can be installed by adding `rrpproxy` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:phoenix_mdbootstrap_form, "~> 0.0.9"}]
+  [
+    {:phoenix_mdbootstrap_form, "~> 0.1.2"}
+  ]
 end
 ```
 
-You may also alias this module in `web.ex` so it's shorter to type in templates.
+You may also alias this module in `web.ex`, so it's shorter to type in templates.
 
 ```elixir
 alias PhoenixMDBootstrapForm, as: MDF
@@ -23,9 +22,9 @@ alias PhoenixMDBootstrapForm, as: MDF
 
 ## Usage
 
-In order to change markup of form elements to bootstrap-style ones all you need is
-to prefix regular methods you aleady have with `PhoenixMDBootstrapForm`, or `MDF`
-if you created an alias. For example:
+In order to change markup of form elements to bootstrap-style, all you need is to prefix regular methods you aleady have with `PhoenixMDBootstrapForm`, or `MDF` if you created an alias.
+
+For example:
 
 ```elixir
 <%= form_for @changeset, "/", fn f -> %>
@@ -54,11 +53,9 @@ Becomes bootstrap-styled:
 </form>
 ```
 
-This library generates [horizonal form](https://mdbootstrap.com/docs/jquery/forms/basic/)
-layout that collapses down on small screens.
+This library generates [horizonal form](https://mdbootstrap.com/docs/jquery/forms/basic/) layout that collapses down on small screens.
 
-You can always fall-back to default [Phoenix.HTML.Form](https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html)
-methods if bootstrapped ones are not good enough.
+You can always fall-back to default [Phoenix.HTML.Form](https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html) methods if bootstrapped ones are not good enough.
 
 Currently this module supports following methods:
 
@@ -68,8 +65,12 @@ Currently this module supports following methods:
 * password_input
 * textarea
 * telephone_input
+* number_input
 * select
-* multi-select
+* time_select
+* date_select
+* datetime_select
+* multi_select
 * checkbox
 * checkboxes
 * radio_buttons
@@ -212,10 +213,11 @@ config :phoenix_mdbootstrap_form,
 
 ### Credit
 
-This repository has been forked from [GBH's phoenix_bootstrap_form](https://github.com/GBH/phoenix_bootstrap_form) and i just adjusted it for MD Bootstrap.
+This repository has been forked from [GBH's phoenix_bootstrap_form](https://github.com/GBH/phoenix_bootstrap_form) and i just adjusted it for Material Design Bootstrap.
 
 
 ---
 
 Copyright 2017-2018, Oleg Khabarov
-Copyright 2019, Franz Bettag
+
+Copyright 2020-2021, Franz Bettag

@@ -1,6 +1,220 @@
 defmodule PhoenixMDBootstrapForm do
   @moduledoc """
-  This module provides helper methods for creating beautiful looking Material Design Bootstrap forms in Phoenix.
+  Documentation for `PhoenixMDBootstrapForm` which provides helper methods for creating beautiful looking Material Design Bootstrap forms in Phoenix.
+
+  ## Installation
+
+  This package can be installed by adding `rrpproxy` to your list of dependencies in `mix.exs`:
+
+  ```elixir
+  def deps do
+    [
+      {:phoenix_mdbootstrap_form, "~> 0.1.2"}
+    ]
+  end
+  ```
+
+  You may also alias this module in `web.ex`, so it's shorter to type in templates.
+
+  ```elixir
+  alias PhoenixMDBootstrapForm, as: MDF
+  ```
+
+  ## Usage
+
+  In order to change markup of form elements to bootstrap-style, all you need is to prefix regular methods you aleady have with `PhoenixMDBootstrapForm`, or `MDF` if you created an alias.
+
+  For example:
+
+  ```elixir
+  <%= form_for @changeset, "/", fn f -> %>
+    <%= MDF.text_input f, :value %>
+    <%= MDF.submit f %>
+  <% end %>
+  ```
+
+  Becomes bootstrap-styled:
+
+  ```html
+  <form accept-charset="UTF-8" action="/" method="post">
+    <div class="form-group row">
+      <label class="col-form-label text-sm-right col-sm-2" for="record_value">
+        Value
+      </label>
+      <div class="col-sm-10">
+        <input class="form-control" id="record_value" name="record[value]" type="text">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-10 ml-auto">
+        <button class="btn" type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+  ```
+
+  This library generates [horizonal form](https://mdbootstrap.com/docs/jquery/forms/basic/) layout that collapses down on small screens.
+
+  You can always fall-back to default [Phoenix.HTML.Form](https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html) methods if bootstrapped ones are not good enough.
+
+  Currently this module supports following methods:
+
+  * text_input
+  * file_input
+  * email_input
+  * password_input
+  * textarea
+  * telephone_input
+  * number_input
+  * select
+  * time_select
+  * date_select
+  * datetime_select
+  * multi_select
+  * checkbox
+  * checkboxes
+  * radio_buttons
+  * submit
+  * static
+
+  [For quick reference you can look at this template](demo/lib/demo_web/templates/page/index.html.eex).
+  You can `mix phx.server` inside demo folder to see this reference template rendered.
+
+  ### Labels
+
+  To set your own label you can do something like this:
+
+  ```elixir
+  <%= MDF.text_input f, :value, label: [text: "Custom"] %>
+  ```
+
+  ### CSS Classes
+
+  To add your own css class to the input element / controls do this:
+
+  ```elixir
+  <%= MDF.text_input f, :value, input: [class: "custom"] %>
+  ```
+
+  ### Help Text
+
+  You can add help text under the input. It could also be rendered template with
+  links, tables, and whatever else.
+
+  ```elixir
+  <%= MDF.text_input f, :value, input: [help: "Help text"] %>
+  ```
+
+  ### Prepending and Appending Inputs
+
+  ```elixir
+  <%= MDF.text_input f, :value, input: [prepend: "$", append: ".00"] %>
+  ```
+
+  ### Radio Buttons
+
+  You don't need to do multiple calls to create list of radio buttons. One method
+  will do them all:
+
+  ```elixir
+  <%= MDF.radio_buttons f, :value, ["red", "green"] %>
+  ```
+
+  or with custom labels:
+
+  ```elixir
+  <%= MDF.radio_buttons f, :value, [{"R", "red"}, {"G", "green"}] %>
+
+  ```
+
+  or rendered inline:
+
+  ```elixir
+  <%= MDF.radio_buttons f, :value, ["red", "green", "blue"], input: [inline: true] %>
+  ```
+
+  ### Select
+
+  Works just like the standard `select` or `multiple_select` provided by Phoenix:
+
+  ```elixir
+  <%= MDF.select f, :value, ["red", "green", "blue"] %>
+  ```
+
+  or use a multiple select field:
+
+  ```elixir
+  <%= MDF.multiple_select f, :value, ["red", "green", "blue"] %>
+  ```
+
+  ### Checkboxes
+
+  Very similar to `multiple_select` in functionality, you can render collection of
+  checkboxes. Other options are the same as for `radio_buttons`
+
+  ```elixir
+  <%= MDF.checkboxes f, :value, ["red", "green", "blue"], selected: ["green"] %>
+  ```
+
+
+  ### Submit Buttons
+
+  Besides simple `MDF.submit f` you can define custom label and content that goes
+  next to the button. For example:
+
+  ```elixir
+  <% cancel = link "Cancel", to: "/", class: "btn btn-link" %>
+  <%= MDF.submit f, "Smash", class: "btn-primary", alternative: cancel %>
+  ```
+
+  ### Static Elements
+
+  When you need to render a piece of content in the context of your form. For example:
+
+  ```elixir
+  <%= MDF.static f, "Current Avatar", avatar_image_tag %>
+  ```
+
+  ### Form Errors
+
+  If changeset is invalid, form elements will have `.is-invalid` class added and
+  `.invalid-feedback` container will be appended with an error message.
+
+  In order to properly pull in i18n error messages specify `translate_error`
+  function that handles it:
+
+  ```elixir
+  config :phoenix_mdbootstrap_form, [
+    translate_error_function: &MyApp.ErrorHelpers.translate_error/1
+  ]
+  ```
+
+  ### Custom Grid and Label Alignment
+
+  By default `.col-sm-2` and `.col-sm-10` used for label and control colums respectively.
+  You can change that by passing `label_col` and `control_col` with `form_for` like this:
+
+  ```elixir
+  <% opts = [label_col: "col-sm-4", control_col: "col-sm-8", label_align: "text-sm-left"] %>
+  <%= form_for @changeset, "/", opts, fn f -> %>
+
+  ```
+
+  If you need to change it application-wide just edit your `config.exs` and play around with these:
+
+  ```elixir
+  config :phoenix_mdbootstrap_form,
+    label_col_class:    "col-form-label col-sm-2",
+    control_col_class:  "col-sm-10",
+    label_align_class:  "text-sm-right",
+    form_group_class:   "form-group row"
+
+  ```
+
+  ### Credit
+
+  This repository has been forked from [GBH's phoenix_bootstrap_form](https://github.com/GBH/phoenix_bootstrap_form) and i just adjusted it for Material Design Bootstrap.
+
   """
 
   alias Phoenix.HTML
@@ -42,22 +256,27 @@ defmodule PhoenixMDBootstrapForm do
     end
   end
 
+  @doc "Creates a time-select field."
   def time_select(form = %Form{}, field, opts \\ []) do
     special_select(form, field, "fa-clock", "time-picker", opts)
   end
 
+  @doc "Creates a date-select field."
   def date_select(form = %Form{}, field, opts \\ []) do
     special_select(form, field, "fa-calendar", "date-picker", opts)
   end
 
+  @doc "Creates a datetime-select field."
   def datetime_select(form = %Form{}, field, opts \\ []) do
     special_select(form, field, "fa-calendar", "date-time-picker", opts)
   end
 
+  @doc "Creates a select field."
   def select(form = %Form{}, field, options, opts \\ []) do
     draw_generic_input(:select, form, field, options, opts)
   end
 
+  @doc "Creates a multiple-select field."
   def multiple_select(form = %Form{}, field, options, opts \\ []) do
     multi_opts = Keyword.put_new(opts, :multiple, multiple: true)
     draw_generic_input(:select, form, field, options, multi_opts)
@@ -73,11 +292,13 @@ defmodule PhoenixMDBootstrapForm do
     :number_input
   ]
   |> Enum.each(fn method ->
+    @doc "Creates a simple form field."
     def unquote(method)(form = %Form{}, field, opts \\ []) when is_atom(field) do
       draw_generic_input(unquote(method), form, field, nil, opts)
     end
   end)
 
+  @doc "Creates a checkbox field."
   def checkbox(form = %Form{}, field, opts \\ []) do
     {label_opts, opts} = Keyword.pop(opts, :label, [])
     {input_opts, _} = Keyword.pop(opts, :input, [])
@@ -107,6 +328,7 @@ defmodule PhoenixMDBootstrapForm do
     draw_form_group("", content, opts)
   end
 
+  @doc "Creates multiple checkbox fields."
   def checkboxes(form = %Form{}, field, values, opts \\ []) when is_list(values) do
     values = add_labels_to_values(values)
 
@@ -172,6 +394,7 @@ defmodule PhoenixMDBootstrapForm do
     )
   end
 
+  @doc "Creates radio buttons."
   def radio_buttons(form = %Form{}, field, values, opts \\ []) when is_list(values) do
     values = add_labels_to_values(values)
 
@@ -225,11 +448,13 @@ defmodule PhoenixMDBootstrapForm do
     )
   end
 
+  @doc "Creates submit button."
   def submit(form = %Form{}, opts) when is_list(opts), do: draw_submit(form, nil, opts)
   def submit(form = %Form{}, label), do: draw_submit(form, label, [])
   def submit(form = %Form{}, label, opts \\ []), do: draw_submit(form, label, opts)
   def submit(form = %Form{}), do: draw_submit(form, nil, [])
 
+  @doc "Creates static form field without any field required in the changeset."
   def static(form = %Form{}, label, content) do
     label =
       Tag.content_tag(
